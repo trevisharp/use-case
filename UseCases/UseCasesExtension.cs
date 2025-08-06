@@ -5,7 +5,7 @@ namespace UseCases;
 
 using Exceptions;
 
-public static class UseCaseExtension
+public static class UseCasesExtension
 {
     public record CreateProfile;
 
