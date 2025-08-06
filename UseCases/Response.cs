@@ -26,13 +26,13 @@ public static class Response
 /// <summary>
 /// Represents a response with success status, error reason and value.
 /// </summary>
-public record Response<T>(
+public record Response<R>(
     bool Successfull,
-    T? Value,
+    R? Value,
     string? Reason
 )
 {
-    public static implicit operator Response<T>(NonInitializatedResponse nonInitResponse)
+    public static implicit operator Response<R>(NonInitializatedResponse nonInitResponse)
         => (nonInitResponse.Successfull, nonInitResponse.Reason) switch
         {
             (true, _) => Response.Success(GetEmptyResponse()),
@@ -40,11 +40,11 @@ public record Response<T>(
             (false, string reason) => Response.Fail(reason)
         };
 
-    static T GetEmptyResponse()
+    static R GetEmptyResponse()
     {
         try
         {
-            return Activator.CreateInstance<T>();
+            return Activator.CreateInstance<R>();
         }
         catch
         {
